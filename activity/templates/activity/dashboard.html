@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MungMink Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #f4f7f6;
+        font-family: 'Kanit', sans-serif;
+      }
+      .sidebar {
+        background: #333;
+        color: white;
+        min-height: 100vh;
+      }
+      .card-stat {
+        border: none;
+        border-radius: 15px;
+        transition: 0.3s;
+      }
+      .card-stat:hover {
+        transform: translateY(-5px);
+      }
+      .table-container {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+      .badge-low {
+        background-color: #ffcccc;
+        color: #cc0000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-2 sidebar p-4">
+          <h4>MungMink Shop</h4>
+          <hr />
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a href="{% url 'main_home' %}" class="nav-link text-white">🏠 กลับหน้าหลัก</a>
+            </li>
+            <li class="nav-item">
+              <a href="/admin/" class="nav-link text-white">⚙️ จัดการฐานข้อมูล</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-10 p-4">
+          <h2 class="mb-4">ระบบจัดการหลังบ้าน</h2>
+
+          <div class="row mb-4">
+            <div class="col-md-4">
+              <div class="card card-stat bg-white p-3 shadow-sm">
+                <h6 class="text-muted">สินค้าทั้งหมด</h6>
+                <h3>{{ total_items }} <small>รายการ</small></h3>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-stat bg-white p-3 shadow-sm">
+                <h6 class="text-muted">สินค้าใกล้หมด (<=3)</h6>
+                <h3 class="text-danger">{{ low_stock }} <small>รายการ</small></h3>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card card-stat bg-white p-3 shadow-sm">
+                <h6 class="text-muted">จำนวนการสุ่มวันนี้</h6>
+                <h3>{{ total_history }} <small>ครั้ง</small></h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5>รายการสินค้าคงเหลือ</h5>
+              <a href="/admin/activity/item/add/" class="btn btn-dark btn-sm">+ เพิ่มสินค้า</a>
+            </div>
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>ชื่อสินค้า</th>
+                  <th>ต้นทุน</th>
+                  <th>สต็อก</th>
+                  <th>กำไรต่อชิ้น (ขาย 490฿)</th>
+                  <td class="text-success">+{{ item.cost|add:'-406'|abs }} ฿ โดยประมาณ</td>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in items %}
+                  <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.cost }} ฿</td>
+                    <td>
+                      {% if item.stock <= 3 %}
+                        <span class="badge badge-low">ใกล้หมด: {{ item.stock }}</span>
+                      {% else %}
+                        {{ item.stock }}
+                      {% endif %}
+                    </td>
+                    <td class="text-success">+{{ item.estimated_profit|floatformat:2 }} ฿</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

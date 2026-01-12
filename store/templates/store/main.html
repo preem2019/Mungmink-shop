@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MungMink Shop | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        background: #ffffff;
+        font-family: 'Kanit', sans-serif;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      h1 {
+        color: #333;
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+      
+      .enter-btn {
+        background-color: #333;
+        color: white;
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.3s;
+        font-weight: 500;
+      }
+      .enter-btn:hover {
+        background-color: #555;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>MungMink Shop</h1>
+    <a href="{% url 'activity_home' %}" class="enter-btn">เข้าสู่กิจกรรมสุ่มของ</a>
+  </body>
+</html>
