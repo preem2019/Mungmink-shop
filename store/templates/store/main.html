@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
   <head>
-    <title>MungMink Shop | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MungMink Shop | ยินดีต้อนรับ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet" />
     <style>
+      /* กำหนดโทนสีพาสเทล มุ้งมิ้ง */
+      :root {
+        --primary-pink: #ffafcc;
+        --secondary-pink: #ffc8dd;
+        --soft-blue: #a2d2ff;
+        --dark-text: #4a4a4a;
+      }
+      
       body {
-        background: #ffffff;
+        background: linear-gradient(135deg, var(--secondary-pink) 0%, #ffffff 100%);
         font-family: 'Kanit', sans-serif;
         height: 100vh;
         margin: 0;
@@ -13,33 +23,110 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-      }
-      h1 {
-        color: #333;
-        font-size: 3rem;
-        margin-bottom: 20px;
+        color: var(--dark-text);
+        overflow: hidden;
       }
       
-      .enter-btn {
-        background-color: #333;
-        color: white;
-        padding: 15px 40px;
+      /* ตกแต่งหัวข้อ */
+      .container {
+        text-align: center;
+        animation: fadeIn 1.2s ease-out;
+      }
+      
+      h1 {
+        font-size: 4rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+        color: #ff8fab;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      
+      p {
         font-size: 1.2rem;
+        margin-bottom: 30px;
+        color: #777;
+      }
+      
+      /* ปุ่มเข้ากิจกรรมสไตล์มุ้งมิ้ง */
+      .enter-btn {
+        background-color: var(--primary-pink);
+        color: white;
+        padding: 18px 50px;
+        font-size: 1.4rem;
         border: none;
         border-radius: 50px;
         cursor: pointer;
         text-decoration: none;
-        transition: 0.3s;
+        display: inline-block;
+        transition: all 0.3s ease;
         font-weight: 500;
+        box-shadow: 0 8px 20px rgba(255, 175, 204, 0.4);
       }
+      
       .enter-btn:hover {
-        background-color: #555;
-        transform: scale(1.05);
+        background-color: #ff8fab;
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 12px 25px rgba(255, 175, 204, 0.6);
+      }
+      
+      /* เอฟเฟกต์ลอยๆ ของวงกลมพื้นหลัง */
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        background: white;
+        opacity: 0.4;
+        z-index: -1;
+        animation: float 6s infinite ease-in-out;
+      }
+      
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      
+      /* ปุ่มลับไปหน้า Dashboard สำหรับแอดมิน */
+      .admin-link {
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        color: #ddd;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: 0.3s;
+      }
+      
+      .admin-link:hover {
+        color: var(--primary-pink);
       }
     </style>
   </head>
   <body>
-    <h1>MungMink Shop</h1>
-    <a href="{% url 'activity_home' %}" class="enter-btn">เข้าสู่กิจกรรมสุ่มของ</a>
+    <div class="circle" style="width: 200px; height: 200px; top: 10%; left: 15%; background: #cf68e9;"></div>
+    <div class="circle" style="width: 150px; height: 150px; bottom: 15%; right: 10%; background: #ffafcc; animation-delay: 2s;"></div>
+
+    <div class="container">
+      <h1>MungMink Shop</h1>
+      <p>ยินดีต้อนรับสู่โลกแห่งการสุ่มที่น่ารักที่สุด ✨</p>
+
+      <a href="{% url 'activity_home' %}" class="enter-btn">เริ่มสุ่มของขวัญกันเลย! 🎁</a>
+    </div>
+
+    <a href="{% url 'dashboard' %}" class="admin-link">Dashboard Management</a>
   </body>
 </html>
